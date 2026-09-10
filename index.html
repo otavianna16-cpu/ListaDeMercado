@@ -13,15 +13,23 @@
         .grid { display: grid; grid-template-columns: 2fr 1fr; gap: 15px; }
         @media(max-width: 800px) { .grid { grid-template-columns: 1fr; } }
         input, button { padding: 8px 12px; border: 1px solid var(--border); border-radius: 6px; font-size: 14px; }
-        button { background: var(--p); color: #fff; border: none; cursor: pointer; font-weight: 600; }
+        button { background: var(--p); color: #fff; border: none; cursor: pointer; font-weight: 600; white-space: nowrap; }
         .btn-red { background: var(--red); }
-        .add-form #itemName { flex: 3; min-width: 180px; }
-        .add-form #itemQty, .add-form #itemPrice { flex: 1; min-width: 70px; }
-        table { width: 100%; border-collapse: collapse; }
-        th, td { padding: 8px; text-align: left; border-bottom: 1px solid var(--border); }
+        
+        /* Formulário ajustado com larguras otimizadas */
+        .add-form #itemName { flex: 3; min-width: 160px; }
+        .add-form #itemQty { flex: 1; min-width: 80px; }
+        .add-form #itemPrice { flex: 1.5; min-width: 110px; } /* Expandido */
+
+        /* Contêiner da tabela ajustado para evitar que os campos fiquem cortados */
+        .table-responsive { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+        table { width: 100%; border-collapse: collapse; min-width: 500px; }
+        th, td { padding: 8px 6px; text-align: left; border-bottom: 1px solid var(--border); }
         th { background: #f1f5f9; font-size: 12px; color: #475569; }
-        .edit-cell { width: 100%; border: 1px transparent; background: transparent; padding: 4px; font-size: 14px; }
-        .edit-cell:focus { background: #fff; border-color: var(--p); }
+        
+        .edit-cell { width: 100%; border: 1px transparent; background: transparent; padding: 6px 4px; font-size: 14px; }
+        .edit-cell:focus { background: #fff; border-color: var(--p); outline: none; }
+        
         .alert { padding: 10px; border-radius: 6px; margin-bottom: 8px; font-size: 13px; border-left: 4px solid var(--p); background: #dbeafe; }
         .alert-warn { background: #fef3c7; border-color: #f59e0b; color: #92400e; }
         .alert-danger { background: #fee2e2; border-color: var(--red); color: #991b1b; }
@@ -49,18 +57,18 @@
             <form class="add-form row" onsubmit="addItem(event)">
                 <input type="text" id="itemName" placeholder="Nome do Item" required>
                 <input type="number" id="itemQty" placeholder="Qtd" min="0.01" step="any" required>
-                <input type="number" id="itemPrice" placeholder="R$ Un." min="0" step="0.01" required>
+                <input type="number" id="itemPrice" placeholder="Valor Un. (R$)" min="0" step="0.01" required>
                 <button type="submit">➕ Adicionar</button>
             </form>
 
-            <div style="overflow-x: auto;">
+            <div class="table-responsive">
                 <table>
                     <thead>
                         <tr>
-                            <th style="min-width: 180px;">Item</th>
+                            <th style="min-width: 170px;">Item</th>
                             <th style="width: 70px;">Qtd</th>
-                            <th style="width: 90px;">R$ Un.</th>
-                            <th style="width: 90px;">Total</th>
+                            <th style="width: 120px;">Valor Un. (R$)</th> <!-- Largura expandida -->
+                            <th style="width: 100px;">Total</th>
                             <th style="width: 40px;"></th>
                         </tr>
                     </thead>
@@ -211,3 +219,4 @@
     </script>
 </body>
 </html>
+
