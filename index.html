@@ -3,569 +3,211 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de Compras Mensal & Comparador</title>
+    <title>Lista de Compras & Comparador</title>
     <style>
-        :root {
-            --primary: #2563eb;
-            --primary-hover: #1d4ed8;
-            --bg: #f8fafc;
-            --card-bg: #ffffff;
-            --text: #1e293b;
-            --border: #e2e8f0;
-            --danger: #ef4444;
-            --warning: #f59e0b;
-            --success: #10b981;
-            --secondary: #64748b;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-        }
-
-        body {
-            background-color: var(--bg);
-            color: var(--text);
-            padding: 20px;
-            max-width: 1300px;
-            margin: 0 auto;
-        }
-
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: var(--card-bg);
-            padding: 20px 24px;
-            border-radius: 12px;
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-
-        .month-select {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        select, input, button {
-            padding: 10px 14px;
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            font-size: 14px;
-            outline: none;
-        }
-
-        select:focus, input:focus {
-            border-color: var(--primary);
-        }
-
-        button {
-            background-color: var(--primary);
-            color: white;
-            border: none;
-            cursor: pointer;
-            font-weight: 600;
-            transition: background-color 0.2s, transform 0.1s;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        button:hover {
-            background-color: var(--primary-hover);
-        }
-
-        button:active {
-            transform: scale(0.98);
-        }
-
-        button.btn-danger { background-color: var(--danger); }
-        button.btn-danger:hover { background-color: #dc2626; }
-
-        button.btn-secondary { background-color: var(--secondary); }
-        button.btn-secondary:hover { background-color: #475569; }
-
-        .action-bar {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-            background: var(--card-bg);
-            padding: 15px;
-            border-radius: 12px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.03);
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .action-group {
-            display: flex;
-            gap: 10px;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-
-        .grid-container {
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 20px;
-        }
-
-        @media (max-width: 950px) {
-            .grid-container {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .card {
-            background: var(--card-bg);
-            padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
-            margin-bottom: 20px;
-        }
-
-        .add-form {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-        }
-
-        .add-form input {
-            flex: 1;
-            min-width: 120px;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        th, td {
-            padding: 10px 12px;
-            text-align: left;
-            border-bottom: 1px solid var(--border);
-        }
-
-        th {
-            background-color: #f1f5f9;
-            font-size: 13px;
-            color: #475569;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .editable-cell {
-            width: 100%;
-            border: 1px transparent;
-            background: transparent;
-            padding: 6px;
-            border-radius: 4px;
-        }
-
-        .editable-cell:focus {
-            background: #fff;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
-        }
-
-        .total-box {
-            font-size: 1.25rem;
-            font-weight: bold;
-            margin-top: 15px;
-            text-align: right;
-            color: var(--primary);
-        }
-
-        .alert-box {
-            padding: 12px;
-            border-radius: 8px;
-            margin-bottom: 10px;
-            font-size: 13.5px;
-            line-height: 1.4;
-        }
-
-        .alert-warning {
-            background-color: #fef3c7;
-            color: #92400e;
-            border-left: 4px solid var(--warning);
-        }
-
-        .alert-info {
-            background-color: #dbeafe;
-            color: #1e40af;
-            border-left: 4px solid var(--primary);
-        }
-
-        .alert-success {
-            background-color: #d1fae5;
-            color: #065f46;
-            border-left: 4px solid var(--success);
-        }
-
-        .alert-danger {
-            background-color: #fee2e2;
-            color: #991b1b;
-            border-left: 4px solid var(--danger);
-        }
-
-        .alerts-container {
-            max-height: 450px;
-            overflow-y: auto;
-            padding-right: 4px;
-        }
+        :root { --p: #2563eb; --bg: #f8fafc; --card: #fff; --border: #e2e8f0; --red: #ef4444; --green: #10b981; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, sans-serif; }
+        body { background: var(--bg); color: #1e293b; padding: 15px; max-width: 1200px; margin: 0 auto; }
+        .card { background: var(--card); padding: 15px; border-radius: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); margin-bottom: 15px; }
+        .row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-bottom: 15px; }
+        .grid { display: grid; grid-template-columns: 2fr 1fr; gap: 15px; }
+        @media(max-width: 800px) { .grid { grid-template-columns: 1fr; } }
+        input, button { padding: 8px 12px; border: 1px solid var(--border); border-radius: 6px; font-size: 14px; }
+        button { background: var(--p); color: #fff; border: none; cursor: pointer; font-weight: 600; }
+        .btn-red { background: var(--red); }
+        .add-form #itemName { flex: 3; min-width: 180px; }
+        .add-form #itemQty, .add-form #itemPrice { flex: 1; min-width: 70px; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { padding: 8px; text-align: left; border-bottom: 1px solid var(--border); }
+        th { background: #f1f5f9; font-size: 12px; color: #475569; }
+        .edit-cell { width: 100%; border: 1px transparent; background: transparent; padding: 4px; font-size: 14px; }
+        .edit-cell:focus { background: #fff; border-color: var(--p); }
+        .alert { padding: 10px; border-radius: 6px; margin-bottom: 8px; font-size: 13px; border-left: 4px solid var(--p); background: #dbeafe; }
+        .alert-warn { background: #fef3c7; border-color: #f59e0b; color: #92400e; }
+        .alert-danger { background: #fee2e2; border-color: var(--red); color: #991b1b; }
+        .alert-success { background: #d1fae5; border-color: var(--green); color: #065f46; }
     </style>
 </head>
 <body>
 
-    <div class="header">
-        <h1>🛒 Lista de Compras Mensal</h1>
-        <div class="month-select">
-            <label for="currentMonth"><strong>Mês Atual:</strong></label>
-            <input type="month" id="currentMonth" onchange="loadMonthData()">
+    <div class="card row" style="justify-content: space-between;">
+        <h2>🛒 Lista de Compras</h2>
+        <div>
+            <label><strong>Mês Atual:</strong></label>
+            <input type="month" id="currentMonth" onchange="loadData()">
         </div>
     </div>
 
-    <div class="action-bar">
-        <div class="action-group">
-            <label for="copyFromMonth"><strong>Copiar lista de:</strong></label>
-            <input type="month" id="copyFromMonth">
-            <button class="btn-secondary" onclick="copyMonthList()">📋 Copiar Itens</button>
-        </div>
+    <div class="card row">
+        <label><strong>Copiar lista de:</strong></label>
+        <input type="month" id="copyFromMonth">
+        <button style="background: #64748b;" onclick="copyList()">📋 Copiar Itens</button>
     </div>
 
-    <div class="grid-container">
-        <div>
-            <div class="card">
-                <h2>Adicionar / Editar Itens</h2>
-                <form class="add-form" onsubmit="addItem(event)">
-                    <input type="text" id="itemName" placeholder="Nome do Item (ex: Arroz)" required>
-                    <input type="number" id="itemQty" placeholder="Qtd" min="0.001" step="any" required>
-                    <input type="number" id="itemPrice" placeholder="Valor Un. (R$)" min="0" step="0.01" required>
-                    <button type="submit">➕ Adicionar</button>
-                </form>
+    <div class="grid">
+        <div class="card">
+            <form class="add-form row" onsubmit="addItem(event)">
+                <input type="text" id="itemName" placeholder="Nome do Item" required>
+                <input type="number" id="itemQty" placeholder="Qtd" min="0.01" step="any" required>
+                <input type="number" id="itemPrice" placeholder="R$ Un." min="0" step="0.01" required>
+                <button type="submit">➕ Adicionar</button>
+            </form>
 
-                <div style="overflow-x: auto;">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Item</th>
-                                <th style="width: 90px;">Qtd</th>
-                                <th style="width: 110px;">Preço Un.</th>
-                                <th style="width: 110px;">Total (R$)</th>
-                                <th style="width: 50px;">Ação</th>
-                            </tr>
-                        </thead>
-                        <tbody id="itemsTable"></tbody>
-                    </table>
-                </div>
-
-                <div class="total-box">
-                    Total do Mês: R$ <span id="monthTotal">0,00</span>
-                </div>
+            <div style="overflow-x: auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="min-width: 180px;">Item</th>
+                            <th style="width: 70px;">Qtd</th>
+                            <th style="width: 90px;">R$ Un.</th>
+                            <th style="width: 90px;">Total</th>
+                            <th style="width: 40px;"></th>
+                        </tr>
+                    </thead>
+                    <tbody id="itemsTable"></tbody>
+                </table>
             </div>
+            <h3 style="text-align: right; margin-top: 15px; color: var(--p);">Total: R$ <span id="monthTotal">0,00</span></h3>
         </div>
 
-        <div>
-            <div class="card">
-                <h2>📊 Comparador de Meses</h2>
-                <div class="month-select" style="margin-bottom: 15px;">
-                    <label for="compareMonth">Comparar com:</label>
-                    <input type="month" id="compareMonth" onchange="compareMonths()">
-                </div>
-
-                <div id="comparisonSummary"></div>
-
-                <h3>Alertas & Alterações</h3>
-                <div class="alerts-container" id="alertsList">
-                    <p style="color: #64748b;">Selecione um mês anterior para comparar.</p>
-                </div>
+        <div class="card">
+            <h3>📊 Comparador</h3>
+            <div class="row" style="margin-top: 10px;">
+                <label>Comparar com:</label>
+                <input type="month" id="compareMonth" onchange="compare()">
             </div>
+            <div id="compSummary"></div>
+            <div id="alertsList" style="max-height: 400px; overflow-y: auto;"></div>
         </div>
     </div>
 
     <script>
-        const initialItems = [
-            "Arroz", "Feijão", "Açúcar", "Sal", "Farinha de trigo", 
-            "Fermento", "Óleo", "Molho de tomate", "Macarrão", 
-            "Saco de lixo", "Veja", "Alho", "Cebola", "Limão", 
-            "Mistura", "Leite Caixinha", "Margarina", "Papel alumínio", 
-            "Papel higiênico", "Gel de cabelo", "Creme de pele", 
-            "Calabresa", "Saquinho pra mistura"
-        ];
+        const initial = ["Arroz", "Feijão", "Açúcar", "Sal", "Farinha de trigo", "Fermento", "Óleo", "Molho de tomate", "Macarrão", "Saco de lixo", "Veja", "Alho", "Cebola", "Limão", "Mistura", "Leite Caixinha", "Margarina", "Papel alumínio", "Papel higiênico", "Gel de cabelo", "Creme de pele", "Calabresa", "Saquinho pra mistura"];
+        let db = JSON.parse(localStorage.getItem('shop_db')) || {};
 
-        let shoppingData = JSON.parse(localStorage.getItem('shopping_data')) || {};
+        const now = new Date();
+        const curM = now.toISOString().slice(0, 7);
+        now.setMonth(now.getMonth() - 1);
+        const prevM = now.toISOString().slice(0, 7);
 
-        const today = new Date();
-        const currentMonthStr = today.toISOString().slice(0, 7);
-        document.getElementById('currentMonth').value = currentMonthStr;
+        document.getElementById('currentMonth').value = curM;
+        document.getElementById('compareMonth').value = prevM;
+        document.getElementById('copyFromMonth').value = prevM;
 
-        const prevMonthDate = new Date();
-        prevMonthDate.setMonth(prevMonthDate.getMonth() - 1);
-        const prevMonthStr = prevMonthDate.toISOString().slice(0, 7);
-        document.getElementById('compareMonth').value = prevMonthStr;
-        document.getElementById('copyFromMonth').value = prevMonthStr;
+        loadData();
 
-        loadMonthData();
+        function save() { localStorage.setItem('shop_db', JSON.stringify(db)); }
+        function getM() { return document.getElementById('currentMonth').value; }
 
-        function saveData() {
-            localStorage.setItem('shopping_data', JSON.stringify(shoppingData));
+        function loadData() {
+            const m = getM();
+            if (!db[m] || !db[m].length) {
+                db[m] = initial.map(n => ({ id: Math.random(), name: n, qty: 1, price: 0 }));
+                save();
+            }
+            render();
+            compare();
         }
 
-        function getCurrentMonthKey() {
-            return document.getElementById('currentMonth').value;
-        }
-
-        function loadMonthData() {
-            const monthKey = getCurrentMonthKey();
+        function copyList() {
+            const cur = getM(), src = document.getElementById('copyFromMonth').value;
+            if (!src || cur === src) return alert('Selecione um mês de origem diferente!');
+            if (!db[src]?.length) return alert('Mês de origem vazio!');
+            if (db[cur]?.length && !confirm('Deseja juntar os itens da lista copiada?')) return;
             
-            if (!shoppingData[monthKey] || shoppingData[monthKey].length === 0) {
-                shoppingData[monthKey] = initialItems.map(name => ({
-                    id: Date.now() + Math.random(),
-                    name: name,
-                    qty: 1,
-                    price: 0
-                }));
-                saveData();
-            }
-            renderTable();
-            compareMonths();
-        }
-
-        function copyMonthList() {
-            const currentKey = getCurrentMonthKey();
-            const sourceKey = document.getElementById('copyFromMonth').value;
-
-            if (!sourceKey) {
-                alert('Selecione o mês de origem para copiar.');
-                return;
-            }
-
-            if (currentKey === sourceKey) {
-                alert('O mês de origem não pode ser igual ao mês atual!');
-                return;
-            }
-
-            const sourceList = shoppingData[sourceKey] || [];
-            if (sourceList.length === 0) {
-                alert('Não existem itens cadastrados no mês selecionado.');
-                return;
-            }
-
-            const currentList = shoppingData[currentKey] || [];
-            if (currentList.length > 0) {
-                const confirmOverwrite = confirm('O mês atual já possui itens. Deseja juntar os itens da outra lista mantendo os existentes?');
-                if (!confirmOverwrite) return;
-            }
-
-            sourceList.forEach(item => {
-                shoppingData[currentKey].push({
-                    id: Date.now() + Math.random(),
-                    name: item.name,
-                    qty: item.qty,
-                    price: item.price
-                });
-            });
-
-            saveData();
-            renderTable();
-            compareMonths();
-            alert('Itens copiados com sucesso!');
+            db[src].forEach(i => db[cur].push({ id: Math.random(), name: i.name, qty: i.qty, price: i.price }));
+            save(); render(); compare();
         }
 
         function addItem(e) {
-            if (e) e.preventDefault();
-            const monthKey = getCurrentMonthKey();
-            const name = document.getElementById('itemName').value.trim();
-            const qty = parseFloat(document.getElementById('itemQty').value);
-            const price = parseFloat(document.getElementById('itemPrice').value);
-
-            if (!name || isNaN(qty) || isNaN(price)) return;
-
-            shoppingData[monthKey].push({
-                id: Date.now() + Math.random(),
-                name,
-                qty,
-                price
-            });
-
-            saveData();
-            renderTable();
-            compareMonths();
-
-            document.getElementById('itemName').value = '';
-            document.getElementById('itemQty').value = '';
-            document.getElementById('itemPrice').value = '';
-        }
-
-        function deleteItem(id) {
-            const monthKey = getCurrentMonthKey();
-            shoppingData[monthKey] = shoppingData[monthKey].filter(item => item.id !== id);
-            saveData();
-            renderTable();
-            compareMonths();
-        }
-
-        function updateItem(id, field, value) {
-            const monthKey = getCurrentMonthKey();
-            const item = shoppingData[monthKey].find(i => i.id === id);
-            if (!item) return;
-
-            if (field === 'name') {
-                item.name = value.trim();
-            } else if (field === 'qty') {
-                item.qty = parseFloat(value) || 0;
-            } else if (field === 'price') {
-                item.price = parseFloat(value) || 0;
+            e.preventDefault();
+            const m = getM(), n = document.getElementById('itemName').value.trim();
+            const q = parseFloat(document.getElementById('itemQty').value);
+            const p = parseFloat(document.getElementById('itemPrice').value);
+            if (n && !isNaN(q) && !isNaN(p)) {
+                db[m].push({ id: Math.random(), name: n, qty: q, price: p });
+                save(); render(); compare();
+                e.target.reset();
             }
-
-            saveData();
-            renderTable();
-            compareMonths();
         }
 
-        function renderTable() {
-            const monthKey = getCurrentMonthKey();
-            const items = shoppingData[monthKey] || [];
-            const tbody = document.getElementById('itemsTable');
+        function delItem(id) {
+            db[getM()] = db[getM()].filter(i => i.id !== id);
+            save(); render(); compare();
+        }
+
+        function update(id, f, v) {
+            const item = db[getM()].find(i => i.id === id);
+            if (item) {
+                item[f] = f === 'name' ? v.trim() : (parseFloat(v) || 0);
+                save(); render(); compare();
+            }
+        }
+
+        function render() {
+            const items = db[getM()] || [], tbody = document.getElementById('itemsTable');
             tbody.innerHTML = '';
+            let total = 0;
 
-            let grandTotal = 0;
-
-            items.forEach(item => {
-                const itemTotal = item.qty * item.price;
-                grandTotal += itemTotal;
-
-                const tr = document.createElement('tr');
-                tr.innerHTML = `
-                    <td>
-                        <input type="text" class="editable-cell" value="${escapeHtml(item.name)}" 
-                               onchange="updateItem(${item.id}, 'name', this.value)">
-                    </td>
-                    <td>
-                        <input type="number" class="editable-cell" value="${item.qty}" step="any"
-                               onchange="updateItem(${item.id}, 'qty', this.value)">
-                    </td>
-                    <td>
-                        <input type="number" class="editable-cell" value="${item.price}" step="0.01"
-                               onchange="updateItem(${item.id}, 'price', this.value)">
-                    </td>
-                    <td><strong>R$ ${itemTotal.toFixed(2)}</strong></td>
-                    <td>
-                        <button class="btn-danger" style="padding: 4px 8px;" onclick="deleteItem(${item.id})">✕</button>
-                    </td>
-                `;
-                tbody.appendChild(tr);
+            items.forEach(i => {
+                const sub = i.qty * i.price;
+                total += sub;
+                tbody.innerHTML += `<tr>
+                    <td><input type="text" class="edit-cell" value="${i.name}" onchange="update(${i.id},'name',this.value)"></td>
+                    <td><input type="number" class="edit-cell" value="${i.qty}" step="any" onchange="update(${i.id},'qty',this.value)"></td>
+                    <td><input type="number" class="edit-cell" value="${i.price}" step="0.01" onchange="update(${i.id},'price',this.value)"></td>
+                    <td><strong>R$ ${sub.toFixed(2)}</strong></td>
+                    <td><button class="btn-red" onclick="delItem(${i.id})">✕</button></td>
+                </tr>`;
             });
-
-            document.getElementById('monthTotal').innerText = grandTotal.toFixed(2).replace('.', ',');
+            document.getElementById('monthTotal').innerText = total.toFixed(2).replace('.', ',');
         }
 
-        function escapeHtml(str) {
-            return str.replace(/"/g, '&quot;');
-        }
+        function compare() {
+            const curK = getM(), cmpK = document.getElementById('compareMonth').value;
+            const curL = db[curK] || [], cmpL = db[cmpK] || [];
+            const alerts = document.getElementById('alertsList'), sum = document.getElementById('compSummary');
+            alerts.innerHTML = '';
 
-        function compareMonths() {
-            const currentKey = getCurrentMonthKey();
-            const compareKey = document.getElementById('compareMonth').value;
+            if (!cmpK || curK === cmpK) return sum.innerHTML = '<p style="color:#64748b">Selecione outro mês.</p>';
 
-            const currentList = shoppingData[currentKey] || [];
-            const compareList = shoppingData[compareKey] || [];
+            const cTot = curL.reduce((a, b) => a + (b.qty * b.price), 0);
+            const oTot = cmpL.reduce((a, b) => a + (b.qty * b.price), 0);
+            const diff = cTot - oTot;
 
-            const alertsContainer = document.getElementById('alertsList');
-            const summaryContainer = document.getElementById('comparisonSummary');
+            sum.innerHTML = `<div style="background:#f1f5f9; padding:10px; border-radius:6px; margin:10px 0;">
+                <p>Anterior (${cmpK}): R$ ${oTot.toFixed(2)}</p>
+                <p>Atual (${curK}): R$ ${cTot.toFixed(2)}</p>
+                <p style="font-weight:bold; color:${diff > 0 ? 'var(--red)' : 'var(--green)'}">
+                    Diferença: ${diff > 0 ? '+' : ''}R$ ${diff.toFixed(2)}
+                </p>
+            </div>`;
 
-            alertsContainer.innerHTML = '';
+            const cmpM = new Map(cmpL.map(i => [i.name.toLowerCase().trim(), i]));
+            const curM = new Map(curL.map(i => [i.name.toLowerCase().trim(), i]));
 
-            if (!compareKey || currentKey === compareKey) {
-                summaryContainer.innerHTML = `<p style="color:#64748b;">Escolha um mês diferente para comparar.</p>`;
-                return;
-            }
-
-            const currentTotal = currentList.reduce((acc, item) => acc + (item.qty * item.price), 0);
-            const compareTotal = compareList.reduce((acc, item) => acc + (item.qty * item.price), 0);
-            const diffTotal = currentTotal - compareTotal;
-
-            summaryContainer.innerHTML = `
-                <div style="margin-bottom: 15px; background: #f1f5f9; padding: 12px; border-radius: 8px;">
-                    <p style="font-size: 13px;">Mês Comparado (${compareKey}): <strong>R$ ${compareTotal.toFixed(2)}</strong></p>
-                    <p style="font-size: 13px;">Mês Atual (${currentKey}): <strong>R$ ${currentTotal.toFixed(2)}</strong></p>
-                    <p style="font-size: 1.05rem; font-weight: bold; margin-top: 6px; color: ${diffTotal > 0 ? '#ef4444' : '#10b981'};">
-                        Diferença: ${diffTotal > 0 ? '+' : ''}R$ ${diffTotal.toFixed(2)} 
-                        (${diffTotal > 0 ? 'Mais caro 📈' : 'Mais barato 📉'})
-                    </p>
-                </div>
-            `;
-
-            const compareMap = new Map();
-            compareList.forEach(item => compareMap.set(item.name.toLowerCase().trim(), item));
-
-            const currentMap = new Map();
-            currentList.forEach(item => currentMap.set(item.name.toLowerCase().trim(), item));
-
-            let alerts = [];
-
-            compareMap.forEach((itemOld, nameLower) => {
-                if (!currentMap.has(nameLower)) {
-                    alerts.push({
-                        type: 'warning',
-                        msg: `<strong>Faltando:</strong> "${itemOld.name}" foi comprado em ${compareKey} (Qtd: ${itemOld.qty}), mas ainda não está na lista deste mês!`
-                    });
-                }
+            cmpM.forEach((oldI, name) => {
+                if (!curM.has(name)) alerts.innerHTML += `<div class="alert alert-warn"><strong>Faltando:</strong> "${oldI.name}" não está no mês atual.</div>`;
             });
 
-            currentMap.forEach((itemNew, nameLower) => {
-                if (!compareMap.has(nameLower)) {
-                    alerts.push({
-                        type: 'info',
-                        msg: `<strong>Novo item:</strong> "${itemNew.name}" foi adicionado este mês e não existia em ${compareKey}.`
-                    });
+            curM.forEach((newI, name) => {
+                if (!cmpM.has(name)) {
+                    alerts.innerHTML += `<div class="alert"><strong>Novo:</strong> "${newI.name}" adicionado este mês.</div>`;
                 } else {
-                    const itemOld = compareMap.get(nameLower);
-
-                    if (itemNew.qty > itemOld.qty) {
-                        alerts.push({
-                            type: 'danger',
-                            msg: `<strong>Aumento de Qtd:</strong> "${itemNew.name}" (Comprando <strong>${itemNew.qty}</strong> vs ${itemOld.qty} no mês anterior).`
-                        });
-                    } else if (itemNew.qty < itemOld.qty) {
-                        alerts.push({
-                            type: 'success',
-                            msg: `<strong>Redução de Qtd:</strong> "${itemNew.name}" (Comprando <strong>${itemNew.qty}</strong> vs ${itemOld.qty} no mês anterior).`
-                        });
+                    const oldI = cmpM.get(name);
+                    if (newI.qty !== oldI.qty) {
+                        const icon = newI.qty > oldI.qty ? 'danger' : 'success';
+                        alerts.innerHTML += `<div class="alert alert-${icon}"><strong>Qtd "${newI.name}":</strong> de ${oldI.qty} para ${newI.qty}.</div>`;
                     }
-
-                    if (itemNew.price > itemOld.price) {
-                        alerts.push({
-                            type: 'danger',
-                            msg: `<strong>Aumento de Preço:</strong> "${itemNew.name}" subiu de R$ ${itemOld.price.toFixed(2)} para R$ ${itemNew.price.toFixed(2)}.`
-                        });
-                    } else if (itemNew.price < itemOld.price) {
-                        alerts.push({
-                            type: 'success',
-                            msg: `<strong>Queda de Preço:</strong> "${itemNew.name}" caiu de R$ ${itemOld.price.toFixed(2)} para R$ ${itemOld.price.toFixed(2)}.`
-                        });
+                    if (newI.price !== oldI.price) {
+                        const icon = newI.price > oldI.price ? 'danger' : 'success';
+                        alerts.innerHTML += `<div class="alert alert-${icon}"><strong>Preço "${newI.name}":</strong> de R$${oldI.price.toFixed(2)} para R$${newI.price.toFixed(2)}.</div>`;
                     }
                 }
             });
 
-            if (alerts.length === 0) {
-                alertsContainer.innerHTML = `<div class="alert-box alert-success">As listas são idênticas em quantidade e valores!</div>`;
-            } else {
-                alerts.forEach(alert => {
-                    const div = document.createElement('div');
-                    div.className = `alert-box alert-${alert.type}`;
-                    div.innerHTML = alert.msg;
-                    alertsContainer.appendChild(div);
-                });
-            }
+            if (!alerts.innerHTML) alerts.innerHTML = '<div class="alert alert-success">As listas são idênticas!</div>';
         }
     </script>
 </body>
 </html>
-
